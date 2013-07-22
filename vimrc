@@ -23,3 +23,8 @@ set background=dark
 "" Key mappings.
 map <C-n> :NERDTreeToggle<CR>
 
+"" vim-airline configs.
+let g:airline_theme='solarized'
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+
