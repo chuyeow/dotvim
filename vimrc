@@ -33,3 +33,6 @@ let g:airline_theme='solarized'
 let g:airline_left_sep = '»'
 let g:airline_right_sep = '«'
 
+"" Disable automatic insertion of comments - I can do that myself.
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
