@@ -20,7 +20,7 @@ set ignorecase " Case-insensitive search...
 set smartcase " ... unless they contain at least one capital letter.
 
 "" Colors.
-colorscheme railscasts
+colorscheme decoydonut
 set background=dark
 
 "" Key mappings.
