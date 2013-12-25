@@ -24,7 +24,6 @@ colorscheme decoydonut
 set background=dark
 
 "" Key mappings.
-map <C-n> :NERDTreeToggle<CR>
   "" Easy split navigation.
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
