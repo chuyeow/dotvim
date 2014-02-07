@@ -14,6 +14,13 @@ set tabstop=2 shiftwidth=2
 set expandtab " Insert spaces for tab key.
 set backspace=indent,eol,start " Backspace through everything in insert mode.
 
+"" Highlight tabs and trailing whitespace.
+set listchars=tab:⇝\ ,trail:·
+set list
+
+"" Make 81st column stand out.
+call matchadd('ColorColumn', '\%81v', 100)
+
 "" Searching.
 set incsearch " Incremental search.
 set ignorecase " Case-insensitive search...
