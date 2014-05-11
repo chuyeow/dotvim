@@ -7,6 +7,7 @@ set encoding=utf-8
 set showcmd " Show partially entered command in bottom right.
 syntax on
 filetype plugin indent on
+set number
 
 "" Whitespace.
 set tabstop=2 shiftwidth=2
@@ -44,6 +45,7 @@ let g:airline_right_sep = '«'
 
 "" vim-go.
 let g:go_disable_autoinstall = 1
+let g:go_goimports_bin="/Data/working_copies/go-workspace/bin/goimports"
 
 "" Disable automatic insertion of comments - I can do that myself.
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
