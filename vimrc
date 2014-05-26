@@ -1,12 +1,32 @@
 set laststatus=2
 
-execute pathogen#infect()
-
 set nocompatible
+filetype plugin on
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-fugitive'
+Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vinegar'
+
+" Add Vundle Plugins added before the following line.
+call vundle#end()
+filetype plugin indent on
+
 set encoding=utf-8
 set showcmd " Show partially entered command in bottom right.
 syntax on
-filetype plugin indent on
 set number
 
 "" Whitespace.
@@ -39,14 +59,16 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "" vim-airline configs.
-let g:airline_theme='solarized'
+let g:airline_theme='bubblegum'
 let g:airline_left_sep = '»'
 let g:airline_right_sep = '«'
 
 "" vim-go.
-let g:go_disable_autoinstall = 1
+let g:go_disable_autoinstall=1
 let g:go_goimports_bin="/Data/working_copies/go-workspace/bin/goimports"
 
 "" Disable automatic insertion of comments - I can do that myself.
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+"" Syntax highlight mappings.
+autocmd BufReadPost *.coffee set filetype=coffee
