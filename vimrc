@@ -55,6 +55,17 @@ colorscheme railscasts
 set background=dark
 
 "" Key mappings.
+let mapleader=","
+
+  "" Ctrl-P
+map <C-t> :CtrlP<CR>
+imap <C-t> <ESC>:CtrlP<CR>
+
+  "" Fugitive
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gl :Git ls<CR>
+
   "" Easy split navigation.
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
