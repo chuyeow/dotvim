@@ -12,11 +12,14 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-haml'
+Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 
@@ -58,6 +61,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+"" neocomplcache
+let g:neocomplcache_enable_at_startup=1
+let g:neocomplcache_enable_smart_case=1
+  " <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
 "" vim-airline configs.
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '»'
@@ -71,4 +80,5 @@ let g:go_goimports_bin="/Data/working_copies/go-workspace/bin/goimports"
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "" Syntax highlight mappings.
-autocmd BufReadPost *.coffee set filetype=coffee
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+autocmd BufNewFile,BufRead *.hbs.haml,*.js.hamlbars set filetype=haml
