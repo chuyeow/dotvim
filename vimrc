@@ -92,4 +92,5 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "" Syntax highlight mappings.
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd BufNewFile,BufRead *.hbs.haml,*.js.hamlbars set filetype=haml
