@@ -51,7 +51,7 @@ set smartcase " ... unless they contain at least one capital letter.
 set hlsearch " Highlight matches.
 
 "" Colors.
-colorscheme railscasts
+colorscheme donut
 set background=dark
 
 "" Key mappings.
