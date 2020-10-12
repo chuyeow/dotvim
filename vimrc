@@ -1,96 +1,129 @@
-set laststatus=2
+let mapleader = " "
 
-set nocompatible
-filetype plugin on
+" Activate fzf to find in files.
+nnoremap <Leader>f :Rg<CR>
+nnoremap <Leader>t :Files<CR>
+nnoremap <Leader><Space> :Buffers<CR>
 
-" Set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Quicker navigation between splits.
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-" Let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" Navigate buffers.
+nnoremap <silent> <C-n> :bn<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>c :bd<CR>
 
-Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Shougo/neocomplcache.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'tpope/vim-fugitive'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-haml'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-vinegar'
+" For switching tabs based on their number.
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
 
-" Add Vundle Plugins added before the following line.
-call vundle#end()
-filetype plugin indent on
+" Clear search highlights.
+nnoremap <Leader>sc :noh<CR>
 
-set encoding=utf-8
-set showcmd " Show partially entered command in bottom right.
-syntax on
+" Comment/uncomment with Commentary.
+nnoremap <Leader>/ :Commentary<CR>
+
+" Source vimrc with <Leader>rv.
+nnoremap <Leader>rv :source ~/.vimrc<CR>:echo "Reloaded .vimrc"<CR>
+
+" vim-go.
+nnoremap <Leader>def :GoDef<CR>
+
 set number
+set showcmd     " Show (partial) command in status line.
+set showmatch   " Show matching brackets.
+set ignorecase  " Case-insensitive matching.
+set incsearch   " Incremental search.
+set hlsearch    " Highlight matching search patterns.
+set autowrite   " Automatically save before commands like :next and :make.
+set cursorline  " Highlight current line.
+set mouse=a     " Enable mouse usage (all modes).
+set backspace=indent,eol,start  " Allow Backspace to work most of the time.
+set updatetime=300  " Delay in ms before Vim writes its swap file.
+set timeoutlen=500  " Time vim waits after a key code or mapped key is entered. Default: 1000ms.
+set laststatus=2   " Always display the status line.
 
-"" Whitespace.
-set tabstop=2 shiftwidth=2
-set expandtab " Insert spaces for tab key.
-set backspace=indent,eol,start " Backspace through everything in insert mode.
+set termguicolors
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 
-"" Highlight tabs and trailing whitespace.
-set listchars=tab:⇀\ ,trail:·
-set list
+set colorcolumn=80,120
+set tabstop=2
+set shiftwidth=2  " Make an indent correspond to a single tab.
 
-"" Make 81st column stand out.
-call matchadd('ColorColumn', '\%81v', 100)
+" Themes are located in ~/.vim/pack/themes/start.
+packadd! dracula
+syntax enable
+colorscheme dracula
+" colorscheme base16-default-dark
 
-"" Searching.
-set incsearch " Incremental search.
-set ignorecase " Case-insensitive search...
-set smartcase " ... unless they contain at least one capital letter.
-set hlsearch " Highlight matches.
+" vim-plug plugin manager.
+" https://github.com/junegunn/vim-plug
+call plug#begin('~/.vim/plugged') " Directory for plugins.
 
-"" Colors.
-colorscheme donut
-set background=dark
+" fzf to search across many files.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-"" Key mappings.
-let mapleader=","
+Plug 'kien/ctrlp.vim'
 
-  "" Ctrl-P
-map <C-t> :CtrlP<CR>
-imap <C-t> <ESC>:CtrlP<CR>
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-  "" Fugitive
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>gl :Git ls<CR>
+" lightline allows deeper customization of the statusline.
+Plug 'itchyny/lightline.vim'
 
-  "" Easy split navigation.
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Buftabline displays the buffer list in the tabline.
+Plug 'ap/vim-buftabline'
 
-"" neocomplcache
-let g:neocomplcache_enable_at_startup=1
-let g:neocomplcache_enable_smart_case=1
-  " <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" golden-ratio resizes the focused window to the perfect size for editing.
+Plug 'roman/golden-ratio'
 
-"" vim-airline configs.
-let g:airline_theme='bubblegum'
-let g:airline_left_sep = '»'
-let g:airline_right_sep = '«'
+" Commentary let's you comment out stuff using "gc<text object>".
+Plug 'tpope/vim-commentary'
 
-"" vim-go.
-let g:go_disable_autoinstall=1
-let g:go_goimports_bin="/Data/working_copies/go-workspace/bin/goimports"
+" CoC (aka Conquer of Completion) adds incremental autocompletion, with LSP
+" support.
+" TODO I haven't configured this plugin.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-"" Disable automatic insertion of comments - I can do that myself.
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" vim-which-key displays available keybindings.
+" https://github.com/liuchengxu/vim-which-key
+Plug 'liuchengxu/vim-which-key'
 
-"" Syntax highlight mappings.
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-autocmd BufNewFile,BufReadPost *.go set filetype=go
-autocmd BufNewFile,BufRead *.hbs.haml,*.js.hamlbars set filetype=haml
+call plug#end()
+
+" Lightline: customize lightline colorscheme.
+let g:lightline = {
+	\ 'colorscheme': 'onedark',
+  \ 'component_function': {
+  \   'filename': 'LightlineFilename'
+  \  }
+  \}
+function! LightlineFilename()
+	return expand('%p:h')
+endfunction
+
+" CtrlP: enable cross-session caching.
+let g:ctrlp_clear_cache_on_exit = 0
+
+" CtrlP: scan for dotfiles and dotdirs.
+let g:ctrlp_show_hidden = 1
+
+" CtrlP: use ripgrep if it's available.
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
+endif
+
+" Highlight trailing whitespace.
+highlight RedundantSpaces ctermbg=red guibg=IndianRed
+match RedundantSpaces /\s\+$/
+" Strip trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+
