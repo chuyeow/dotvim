@@ -1,5 +1,8 @@
 let mapleader = " "
 
+" File explorer shortcuts.
+nnoremap <Leader>b :Vexplore<CR> :vertical resize 40<CR>
+
 " Activate fzf to find in files.
 nnoremap <Leader>f :Rg<CR>
 nnoremap <Leader>t :Files<CR>
@@ -127,3 +130,5 @@ match RedundantSpaces /\s\+$/
 " Strip trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
+" netrw: show tree view.
+let g:netrw_liststyle = 3
