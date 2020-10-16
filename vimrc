@@ -65,7 +65,9 @@ set mouse=a     " Enable mouse usage (all modes).
 set backspace=indent,eol,start  " Allow Backspace to work most of the time.
 set updatetime=300  " Delay in ms before Vim writes its swap file.
 set timeoutlen=500  " Time vim waits after a key code or mapped key is entered. Default: 1000ms.
-set laststatus=2   " Always display the status line.
+set laststatus=2    " Always display the status line.
+set list            " Show whitespace characters.
+set listchars=tab:»\ ,trail:-
 
 set termguicolors
 let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
@@ -80,6 +82,29 @@ packadd! dracula
 syntax enable
 colorscheme dracula
 " colorscheme base16-default-dark
+
+if has("autocmd")
+	" Reload vimrc everytime it's saved.
+	augroup vimrc
+		autocmd!
+		autocmd BufWritePost .vimrc source $MYVIMRC
+	augroup end
+
+	" Strip trailing whitespace on save.
+	autocmd BufWritePre * %s/\s\+$//e
+
+	" Wrap lines at 80 characters in Markdown files.
+	autocmd BufRead,BufNewFile *.md setlocal textwidth=80
+
+	autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
+	autocmd FileType markdown setlocal ts=4 sts=4 sw=4 expandtab
+
+	" Jenkinsfiles are Groovy files.
+	autocmd BufNewFile,BufRead Jenkinsfile,*.jenkinsfile setfiletype groovy
+
+	" Treat files ending with .Dockerfile as Dockerfiles.
+	autocmd BufNewFile,BufRead *.Dockerfile setfiletype dockerfile
+endif
 
 " vim-plug plugin manager.
 " https://github.com/junegunn/vim-plug
@@ -99,11 +124,11 @@ Plug 'itchyny/lightline.vim'
 " Buftabline displays the buffer list in the tabline.
 Plug 'ap/vim-buftabline'
 
-" golden-ratio resizes the focused window to the perfect size for editing.
-Plug 'roman/golden-ratio'
-
 " Commentary let's you comment out stuff using "gc<text object>".
 Plug 'tpope/vim-commentary'
+
+" VimCompletesMe adds autocompletion.
+Plug 'ajh17/VimCompletesMe'
 
 " CoC (aka Conquer of Completion) adds incremental autocompletion, with LSP
 " support.
@@ -144,8 +169,6 @@ let g:go_fmt_command = "goimports"
 " Highlight trailing whitespace.
 highlight RedundantSpaces ctermbg=red guibg=IndianRed
 match RedundantSpaces /\s\+$/
-" Strip trailing whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
 
 " netrw: show tree view.
 let g:netrw_liststyle = 3
