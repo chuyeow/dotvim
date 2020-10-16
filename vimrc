@@ -30,14 +30,28 @@ nnoremap <Leader>5 5gt
 " Clear search highlights.
 nnoremap <Leader>sc :noh<CR>
 
+" Changes.
+nnoremap <Leader>. g,
+nnoremap <Leader>, g;
+
+" Mac line navigation.
+nnoremap <C-e> $
+nnoremap <C-A> ^
+inoremap <C-e> <Esc>$
+inoremap <C-A> <Esc>^
+
 " Comment/uncomment with Commentary.
 nnoremap <Leader>/ :Commentary<CR>
-
-" Source vimrc with <Leader>rv.
-nnoremap <Leader>rv :source ~/.vimrc<CR>:echo "Reloaded .vimrc"<CR>
+vmap <Leader>/ <plug>Commentary
+" Make your terminal send ++ when hitting say Cmd+/.
+nnoremap ++ :Commentary<CR>
+vmap ++ <plug>Commentary
 
 " vim-go.
 nnoremap <Leader>def :GoDef<CR>
+
+" Enable file type detection.
+filetype on
 
 set number
 set showcmd     " Show (partial) command in status line.
@@ -104,7 +118,7 @@ call plug#end()
 
 " Lightline: customize lightline colorscheme.
 let g:lightline = {
-	\ 'colorscheme': 'onedark',
+	\ 'colorscheme': 'darcula',
   \ 'component_function': {
   \   'filename': 'LightlineFilename'
   \  }
@@ -123,6 +137,9 @@ let g:ctrlp_show_hidden = 1
 if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
 endif
+
+" vim-go: use goimports instead of gofmt on save.
+let g:go_fmt_command = "goimports"
 
 " Highlight trailing whitespace.
 highlight RedundantSpaces ctermbg=red guibg=IndianRed
